@@ -1392,8 +1392,26 @@ footer{
      SCRIPTS
 ════════════════════════════════════════ -->
 <script>
-/* Loader */
-window.addEventListener('load',()=>setTimeout(()=>document.getElementById('loader').classList.add('out'),1200));
+/* Loader — safe fallback */
+(function () {
+  const loader = document.getElementById('loader');
+  if (!loader) return;
+
+  const hideLoader = () => {
+    loader.classList.add('out');
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(hideLoader, 300);
+    }, { once: true });
+  } else {
+    setTimeout(hideLoader, 300);
+  }
+
+  // Safety fallback
+  setTimeout(hideLoader, 2500);
+})();
 
 /* Nav scroll progress + active links */
 const navEl=document.getElementById('nav');
