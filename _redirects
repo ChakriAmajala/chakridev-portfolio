@@ -1,0 +1,6 @@
+# Cloudflare Pages redirects
+# Redirect www to non-www (canonical)
+https://www.chakridev.dev/* https://chakridev.dev/:splat 301
+
+# SPA fallback (not needed for static site, but safe to include)
+/* /index.html 200
